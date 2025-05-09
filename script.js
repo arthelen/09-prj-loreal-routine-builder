@@ -55,3 +55,13 @@ chatForm.addEventListener("submit", (e) => {
 
   chatWindow.innerHTML = "Connect to the OpenAI API for a response!";
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+  const categoryDropdown = document.getElementById("categoryFilter");
+  const choices = new Choices(categoryDropdown, {
+    searchEnabled: false,
+    itemSelectText: '', // removes 'Press to select'
+    shouldSort: false,
+    placeholderValue: 'Choose a Category'
+  });
+});
