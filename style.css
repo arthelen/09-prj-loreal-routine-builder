@@ -1,3 +1,5 @@
+/* red > #FF003B */
+
 /* —— basic reset —— */
 * {
   box-sizing: border-box;
@@ -39,7 +41,7 @@ body {
 
 .loreal-navbar {
   /* background: linear-gradient(to right, #9d0063, #e10069); */
-  background: #CDC4BA;
+  background: #000;
   color: white;
   font-family: 'HelveticaNowDisplay', sans-serif;
   font-size: 14px;
@@ -58,13 +60,13 @@ body {
   font-weight: 500;
   letter-spacing: 0.07em;
   font-size: 1.3em;
-  color: #3D3D3D;
+  color: white;
   text-decoration: none;
   transition: 0.3s ease-in-out;
 }
 
 .full-nav a:hover {
-  color: white;
+  color: #FF003B;
 }
 
 .navbar-logo {
@@ -182,6 +184,12 @@ select {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
+.choices__inner:focus {
+  outline: none;
+  border: none;
+  border-radius: 10px;
+}
+
 .choices__list--dropdown {
   border: 1px solid #ccc;
   background-color: #CDC4BA;
@@ -198,8 +206,30 @@ select {
 
 .choices__item--selectable:hover {
   background-color: #CDC4BA;
+  opacity: 100%;
   color: #3D3D3D;
 }
+
+/* .choices__inner::-webkit-scrollbar {
+  width: 10px;
+}
+
+.choices__inner::-webkit-scrollbar-track {
+  background: #f0f0f0;
+  border-color: #000;
+  border-radius: 10px;
+}
+
+.choices__inner::-webkit-scrollbar-thumb {
+  background-color: #CDC4BA;
+  border-radius: 10px;
+  border: 2px solid #f0f0f0;
+  transition: 0.3s ease-in-out;
+}
+
+.choices__inner::-webkit-scrollbar-thumb:hover {
+  background-color: #3D3D3D;
+} */
 
 /* chat section */
 .chatbox {
@@ -333,8 +363,9 @@ select {
 /* footer */
 .site-footer {
   margin: 60px 0 40px;
-  color: #CDC4BA;
+  color: #FF003B;
   text-align: center;
+  font-weight: bold;
   font-size: 14px;
   font-family: 'HelveticaNowDisplay', sans-serif;
 }
@@ -354,7 +385,7 @@ select {
 }
 
 .site-footer a:hover {
-  color: #CDC4BA;
+  color: #FF003B;
 }
 
 /* products grid */
@@ -447,8 +478,8 @@ select {
 }
 
 .generate-btn:hover {
-  background: #CDC4BA;
-  color: #3D3D3D;
+  background: #FF003B;
+  color: white;
 }
 
 .generate-btn i {
