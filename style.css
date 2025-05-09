@@ -5,17 +5,93 @@
   padding: 0;
 }
 
+/* for headers */
+@font-face {
+  font-family: 'Halesworth Regular';
+  src: url('path/to/halesworth-regular.woff2') format('woff2'),
+       url('path/to/halesworth-regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* for body */
+@font-face {
+    font-family: 'HelveticaNowDisplay';
+    font-style: normal;
+    font-weight: 700;
+    src: url('path/to/HelveticaNowDisplay-W05-Bd.woff2') format('woff2'),
+         url('path/to/HelveticaNowDisplay-W05-Bd.woff') format('woff');
+}
+
 /* —— body + fonts —— */
 body {
   font-family: "Montserrat", Arial, Helvetica, sans-serif;
   color: #333;
-  display: flex;
+  display: block;
   justify-content: center;
 }
 
 .page-wrapper {
   width: 90%;
   max-width: 900px;
+  margin: 0 auto;
+}
+
+.loreal-navbar {
+  /* background: linear-gradient(to right, #9d0063, #e10069); */
+  background: #CDC4BA;
+  color: white;
+  font-family: 'HelveticaNowDisplay', sans-serif;
+  font-size: 14px;
+  padding: 6px 20px 0;
+}
+
+.bottom-nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.bottom-nav a {
+  font-family: 'Halesworth Regular', serif;
+  font-weight: 500;
+  letter-spacing: 0.07em;
+  font-size: 1.3em;
+  color: #3D3D3D;
+  text-decoration: none;
+  transition: 0.3s ease-in-out;
+}
+
+.bottom-nav a:hover {
+  color: white;
+}
+
+.navbar-logo {
+  height: 55px;
+  justify-content: center;
+  display: flex;
+  margin: 20px auto;
+}
+
+.bottom-nav {
+  padding: 10px 0 20px;
+  gap: 70px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+select {
+  background: transparent;
+  color: white;
+  border: 1px solid white;
+  padding: 2px 6px;
+  font-size: 14px;
+}
+
+.icon {
+  font-size: 16px;
+  margin-right: 8px;
 }
 
 /* header */
@@ -32,7 +108,9 @@ body {
 
 .site-title {
   font-size: 22px;
+  font-family: 'Halesworth Regular', serif;
   font-weight: 500;
+  letter-spacing: 0.07em;
   margin-bottom: 10px;
 }
 
@@ -151,9 +229,10 @@ body {
 /* footer */
 .site-footer {
   margin: 60px 0 40px;
+  color: #CDC4BA;
   text-align: center;
   font-size: 14px;
-  color: #666;
+  font-family: 'HelveticaNowDisplay', sans-serif;
 }
 
 .site-footer nav {
@@ -162,12 +241,16 @@ body {
 
 .site-footer a {
   margin: 0 8px;
-  color: #000;
+  font-family: 'Halesworth Regular', serif;
+  font-weight: 500;
+  letter-spacing: 0.07em;
+  color: #3D3D3D;
   text-decoration: none;
+  transition: 0.3s ease-in-out;
 }
 
 .site-footer a:hover {
-  color: #666666;
+  color: #CDC4BA;
 }
 
 /* products grid */
