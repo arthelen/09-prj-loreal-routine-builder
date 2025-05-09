@@ -25,7 +25,7 @@
 
 /* —— body + fonts —— */
 body {
-  font-family: "Montserrat", Arial, Helvetica, sans-serif;
+  font-family: 'HelveticaNowDisplay', sans-serif;
   color: #333;
   display: block;
   justify-content: center;
@@ -46,14 +46,14 @@ body {
   padding: 6px 20px 0;
 }
 
-.bottom-nav {
+.full-nav {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
 }
 
-.bottom-nav a {
+.full-nav a {
   font-family: 'Halesworth Regular', serif;
   font-weight: 500;
   letter-spacing: 0.07em;
@@ -63,7 +63,7 @@ body {
   transition: 0.3s ease-in-out;
 }
 
-.bottom-nav a:hover {
+.full-nav a:hover {
   color: white;
 }
 
@@ -74,7 +74,7 @@ body {
   margin: 20px auto;
 }
 
-.bottom-nav {
+.full-nav {
   padding: 10px 0 20px;
   gap: 70px;
   align-items: center;
@@ -125,15 +125,16 @@ select {
   padding: 16px;
   font-size: 18px;
   border: 2px solid #000;
+  color: #3D3D3D;
   border-radius: 8px;
   cursor: pointer;
   background-color: white;
-  font-weight: 500;
+  font-weight: bold;
 }
 
 .search-section select:focus {
   outline: none;
-  border-color: #666;
+  border-color: #3D3D3D;
 }
 
 /* chat section */
@@ -164,7 +165,7 @@ select {
   width: 100%;
   text-align: center;
   padding: 40px;
-  color: #666;
+  color: #3D3D3D;
   font-size: 18px;
 }
 
@@ -191,8 +192,8 @@ select {
 
 .chat-form button {
   font-size: 18px;
-  background: #000;
-  color: #fff;
+  background: #3D3D3D;
+  color: white;
   border: none;
   padding: 12px;
   width: 48px;
@@ -201,11 +202,12 @@ select {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: 0.3s ease-in-out;
 }
 
 .chat-form button:hover {
-  background: #666666;
+  background: #CDC4BA;
+  color: #3D3D3D;
 }
 
 .chat-form button:focus {
@@ -320,17 +322,18 @@ select {
   margin-top: 20px;
   padding: 16px;
   font-size: 18px;
-  font-weight: 500;
-  color: #fff;
-  background: #000;
+  font-weight: bold;
+  color: white;
+  background: #3D3D3D;
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: 0.3s ease-in-out;
 }
 
 .generate-btn:hover {
-  background: #666;
+  background: #CDC4BA;
+  color: #3D3D3D;
 }
 
 .generate-btn i {
