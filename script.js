@@ -149,6 +149,12 @@ chatForm.addEventListener("submit", async (e) => {
     const reply = data.reply || "⚠️ Sorry, I didn’t catch that.";
     messages.push({ role: "assistant", content: reply });
 
+    if (chatSound) {
+    chatSound.currentTime = 0;
+    chatSound.play();
+  }
+
+
     chatWindow.lastChild.querySelector(".bubble").textContent = reply;
     localStorage.setItem("chatHistory", JSON.stringify(messages));
   } catch (error) {
