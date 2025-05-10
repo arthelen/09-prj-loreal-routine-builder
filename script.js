@@ -47,8 +47,8 @@ function renderProducts() {
           <p>${product.brand}</p>
         </div>
         <div class="product-buttons">
-          <button class="select-btn">${isSelected ? "Remove" : "Select"}</button>
           <button class="desc-btn">Description</button>
+          <button class="select-btn">${isSelected ? "Remove" : "Select"}</button>
         </div>
         <div class="product-overlay hidden">
           <div class="overlay-content">
