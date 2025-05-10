@@ -190,6 +190,10 @@ select {
   border-radius: 10px;
 }
 
+.choices__list--single:hover {
+  color: #FF003B;
+}
+
 .choices__list--dropdown {
   border: 1px solid #ccc;
   background-color: #CDC4BA;
@@ -205,9 +209,9 @@ select {
 }
 
 .choices__item--selectable:hover {
-  background-color: #CDC4BA;
   opacity: 100%;
-  color: #3D3D3D;
+  color: #FF003B;
+  font-weight: bold;
 }
 
 /* .choices__inner::-webkit-scrollbar {
@@ -348,6 +352,60 @@ select {
   outline: none;
 }
 
+.msg {
+  display: flex;
+  margin-bottom: 12px;
+}
+
+.msg.user {
+  justify-content: flex-end;
+}
+
+.msg.ai {
+  justify-content: flex-start;
+}
+
+.bubble {
+  max-width: 70%;
+  padding: 12px 16px;
+  border-radius: 20px;
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 1.4;
+  background-color: #f0f0f0;
+  color: #3D3D3D;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.user .bubble {
+  background-color: #FF003B;
+  color: white;
+  border-bottom-right-radius: 0;
+}
+
+.ai .bubble {
+  background-color: #f0f0f0;
+  border-bottom-left-radius: 0;
+}
+
+#resetChat {
+  background: #3D3D3D !important;
+  color: white;
+  border: none;
+  font-weight: bold;
+  border-radius: 10px;
+  outline: none;
+  padding: 12px;
+  margin-top: 30px;
+  width: 100%;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+}
+
+#resetChat:hover {
+  background: #FF003B !important;
+  color: white;
+}
 /* visually hidden */
 .visually-hidden {
   position: absolute;
@@ -399,7 +457,7 @@ select {
 
 .product-card {
   flex: 0 1 calc(33.333% - 14px);
-  border: 2px solid #f0f0f0;
+  border: 2px solid #3D3D3D;
   background: #f0f0f0;
   color: #000;
   padding: 15px;
