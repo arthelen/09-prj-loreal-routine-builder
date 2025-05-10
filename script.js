@@ -21,6 +21,11 @@ function renderProducts() {
   const selectedCategory = categoryFilter.value;
   const query = searchInput.value.trim().toLowerCase();
 
+  if (!selectedCategory && !query) {
+    productsContainer.innerHTML = `<div class="placeholder-message">Search or choose a category to view products.</div>`;
+    return;
+  }
+
   const filtered = allProducts.filter((product) => {
     const matchesCategory = !selectedCategory || product.category === selectedCategory;
     const matchesQuery = !query || product.name.toLowerCase().includes(query) || product.brand.toLowerCase().includes(query);

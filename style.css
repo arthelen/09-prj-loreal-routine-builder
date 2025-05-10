@@ -28,7 +28,7 @@
 /* —— body + fonts —— */
 body {
   font-family: 'HelveticaNowDisplay', sans-serif;
-  color: #000;
+  color: black;
   display: block;
   justify-content: center;
 }
@@ -41,7 +41,7 @@ body {
 
 .loreal-navbar {
   /* background: linear-gradient(to right, #9d0063, #e10069); */
-  background: #000;
+  background: black;
   color: white;
   font-family: 'HelveticaNowDisplay', sans-serif;
   font-size: 14px;
@@ -127,7 +127,7 @@ select {
   padding: 14px 16px;
   font-size: 16px;
   border: none;
-  border-bottom: 3px solid #000;
+  border-bottom: 3px solid black;
   border-radius: 6px;
   font-family: 'HelveticaNowDisplay', sans-serif;
   /* box-shadow: 0 2px 6px rgba(0,0,0,0.05); */
@@ -168,7 +168,7 @@ select {
 
  .search-section::-webkit-scrollbar-track {
   background: #f0f0f0;
-  border-color: #000;
+  border-color: black;
   border-radius: 10px;
 }
 
@@ -239,7 +239,7 @@ select {
   flex-direction: column;
   border: 2px solid white;
   text-align: center;
-  color: #000;
+  color: black;
   position: relative;
   padding: 20px;
   border-radius: 10px;
@@ -495,7 +495,6 @@ select {
 .selected-products {
   margin: 40px 0;
   padding: 20px;
-  /* border: 2px solid #000; */
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
 }
@@ -554,7 +553,6 @@ select {
 /* chat section */
 .chatbox {
   margin: 40px 0;
-  /* border: 2px solid #000; */
   border-radius: 10px;
   padding: 26px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -585,7 +583,7 @@ select {
 
 .chat-window::-webkit-scrollbar-track {
   background: #f0f0f0;
-  border-color: #000;
+  border-color: black;
   border-radius: 10px;
 }
 
@@ -623,7 +621,7 @@ select {
   padding: 12px;
   font-size: 18px;
   border: none;
-  border-bottom: 3px solid #000;
+  border-bottom: 3px solid black;
   border-radius: 6px;
   background: transparent;
   transition: 0.3s ease-in-out;
@@ -672,6 +670,7 @@ select {
 }
 
 .msg {
+  color: black;
   display: flex;
   margin-bottom: 12px;
 }
