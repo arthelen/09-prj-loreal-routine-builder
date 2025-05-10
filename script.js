@@ -105,28 +105,32 @@ function renderSelectedProducts() {
 /* Attach click event listeners to remove buttons */
 function attachRemoveListeners() {
   const buttons = document.querySelectorAll(".remove-btn");
-  const cards = document.querySelectorAll(".product-card");
 
-  btn.addEventListener("click", (e) => {
-  e.stopPropagation();
-  const name = btn.dataset.name;
-  const card = btn.closest(".product-card");
+  buttons.forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation(); // prevent click bubbling to card
+      const name = btn.dataset.name;
+      const card = btn.closest(".product-card");
 
-  card.classList.add("fade-out");
+      // Play fade-out animation
+      card.classList.add("fade-out");
 
-  setTimeout(() => {
-    let selected = JSON.parse(localStorage.getItem("selectedProducts")) || [];
-    selected = selected.filter((p) => p.name !== name);
-    localStorage.setItem("selectedProducts", JSON.stringify(selected));
+      // Wait for animation to finish, then update storage + UI
+      setTimeout(() => {
+        // Remove from localStorage
+        let selected = JSON.parse(localStorage.getItem("selectedProducts")) || [];
+        selected = selected.filter((p) => p.name !== name);
+        localStorage.setItem("selectedProducts", JSON.stringify(selected));
 
-    renderSelectedProducts();
+        // Re-render selected product list
+        renderSelectedProducts();
 
-    // Also remove highlight from main grid
-    document
-      .querySelectorAll(`.product-card[data-name="${name}"]`)
-      .forEach((card) => card.classList.remove("selected"));
-  }, 300);
-});
+        // Unselect card in main product grid
+        document.querySelectorAll(`.product-card[data-name="${name}"]`)
+          .forEach(card => card.classList.remove("selected"));
+      }, 300); // matches the CSS transition duration
+    });
+  });
 }
 
 /* Filter and display products when category changes */
