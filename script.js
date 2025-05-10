@@ -39,37 +39,63 @@ function renderProducts() {
   }
 
   productsContainer.innerHTML = filtered
-    .map(
-      (product) => `
-      <div class="product-card ${selectedProducts.some((p) => p.id === product.id) ? "selected" : ""}" data-id="${product.id}">
+  .map((product) => {
+    const isSelected = selectedProducts.some((p) => p.id === product.id);
+    return `
+      <div class="product-card ${isSelected ? "selected" : ""}" data-id="${product.id}">
         <img src="${product.image}" alt="${product.name}">
         <div class="product-info">
           <h3>${product.name}</h3>
           <p>${product.brand}</p>
         </div>
-        <div class="product-description">${product.description}</div>
+        <div class="product-buttons">
+          <button class="select-btn">${isSelected ? "Remove" : "Select"}</button>
+          <button class="desc-btn">Description</button>
+        </div>
+        <div class="product-overlay hidden">
+          <div class="overlay-content">
+            <p>${product.description}</p>
+            <button class="close-overlay">Close</button>
+          </div>
+        </div>
       </div>
-    `
-    )
-    .join("");
+    `;
+  })
+  .join("");
 
   document.querySelectorAll(".product-card").forEach((card) => {
-    card.addEventListener("click", () => {
-      const id = parseInt(card.getAttribute("data-id"));
-      const product = allProducts.find((p) => p.id === id);
-      const index = selectedProducts.findIndex((p) => p.id === id);
+  const id = parseInt(card.getAttribute("data-id"));
+  const product = allProducts.find((p) => p.id === id);
+  const selectBtn = card.querySelector(".select-btn");
+  const descBtn = card.querySelector(".desc-btn");
+  const overlay = card.querySelector(".product-overlay");
+  const closeOverlayBtn = card.querySelector(".close-overlay");
 
-      if (index > -1) {
-        selectedProducts.splice(index, 1);
-      } else {
-        selectedProducts.push(product);
-      }
-
-      localStorage.setItem("selectedProducts", JSON.stringify(selectedProducts));
-      renderProducts();
-      renderSelectedProducts();
-    });
+  selectBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    const index = selectedProducts.findIndex((p) => p.id === id);
+    if (index > -1) {
+      selectedProducts.splice(index, 1);
+    } else {
+      selectedProducts.push(product);
+    }
+    localStorage.setItem("selectedProducts", JSON.stringify(selectedProducts));
+    renderProducts();
+    renderSelectedProducts();
   });
+
+  descBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    overlay.classList.remove("hidden");
+    overlay.classList.add("show");
+  });
+
+  closeOverlayBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    overlay.classList.add("hidden");
+    overlay.classList.remove("show");
+  });
+});
 }
 
 function renderSelectedProducts() {
@@ -81,15 +107,15 @@ function renderSelectedProducts() {
   selectedProductsList.innerHTML = selectedProducts
     .map(
       (product) => `
-    <div class="product-card small" data-id="${product.id}">
-      <button class="remove-btn" title="Remove">×</button>
-      <img src="${product.image}" alt="${product.name}">
-      <div class="product-info">
-        <h3>${product.name}</h3>
-        <p>${product.brand}</p>
-      </div>
-    </div>
-  `
+        <div class="product-card small" data-id="${product.id}">
+          <button class="remove-btn" title="Remove">×</button>
+          <img src="${product.image}" alt="${product.name}">
+          <div class="product-info">
+            <h3>${product.name}</h3>
+            <p>${product.brand}</p>
+          </div>
+        </div>
+      `
     )
     .join("");
 
@@ -111,7 +137,6 @@ searchInput.addEventListener("input", renderProducts);
 categoryFilter.addEventListener("change", renderProducts);
 
 /* ========== Chatbot ========== */
-
 const messages = [
   {
     role: "system",
@@ -167,9 +192,9 @@ function appendMessage(role, text) {
   chatWindow.scrollTop = chatWindow.scrollHeight;
 }
 
-/* Initialize category dropdown and greeting */
+/* Init dropdown + greeting */
 document.addEventListener("DOMContentLoaded", function () {
-  const choices = new Choices(categoryFilter, {
+  new Choices(categoryFilter, {
     searchEnabled: false,
     itemSelectText: '',
     shouldSort: false,

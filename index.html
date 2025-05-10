@@ -37,9 +37,8 @@
       </header>
 
       <!-- Category Filter -->
-      <div class="search-section">
-        <div class="search-controls">
-           <input type="text" id="productSearch" placeholder="🔍 Search products..." class="search-input" />
+       <div class="search-controls">
+        <input type="text" id="productSearch" placeholder="Search products..." class="search-input" />
           <select id="categoryFilter">
             <option value="" disabled selected>Choose a Category</option>
             <option value="cleanser">Cleansers</option>
@@ -54,9 +53,9 @@
           </select>
         </div>
 
-      <!-- Products Grid -->
-      <div id="productsContainer" class="products-grid"></div>
-      </div>
+        <div class="search-section">
+          <div id="productsContainer" class="products-grid"></div>
+        </div>
 
       <!-- Selected Products -->
       <div class="selected-products">
@@ -87,7 +86,7 @@
             <span class="visually-hidden">Send</span>
           </button>
         </form>
-        <button id="resetChat">Start Over</button>
+        <button id="resetChat"><i class="fa-solid fa-rotate-right"></i> Start Over</button>
       </section>
 
       <!------- Footer Links ------->
