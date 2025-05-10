@@ -9,7 +9,6 @@ const chatSound = document.getElementById("chatSound");
 let allProducts = [];
 let selectedProducts = JSON.parse(localStorage.getItem("selectedProducts")) || [];
 
-/* Load product data from JSON file */
 async function loadProducts() {
   const response = await fetch("products.json");
   const data = await response.json();
@@ -33,49 +32,68 @@ function renderProducts() {
     return;
   }
 
-  productsContainer.innerHTML = filtered
-    .map(
-      (product) => `
-      <div class="product-card ${selectedProducts.some((p) => p.id === product.id) ? "selected" : ""}" data-id="${product.id}">
+  productsContainer.innerHTML = filtered.map((product) => {
+    const isSelected = selectedProducts.some((p) => p.id === product.id);
+    return `
+      <div class="product-card ${isSelected ? "selected" : ""}" data-id="${product.id}">
         <img src="${product.image}" alt="${product.name}">
         <div class="product-info">
           <h3>${product.name}</h3>
           <p>${product.brand}</p>
         </div>
-        <div class="product-description">${product.description}</div>
+        <div class="product-buttons">
+          <button class="select-btn">${isSelected ? "Remove" : "Select"}</button>
+          <button class="desc-btn">Description</button>
+        </div>
+        <div class="product-overlay hidden">
+          <div class="overlay-content">
+            <p>${product.description}</p>
+            <button class="close-overlay">Close</button>
+          </div>
+        </div>
       </div>
-    `
-    )
-    .join("");
-
-  document.querySelectorAll(".product-card").forEach((card) => {
-    card.addEventListener("click", () => {
-      const id = parseInt(card.getAttribute("data-id"));
-      const product = allProducts.find((p) => p.id === id);
-      const index = selectedProducts.findIndex((p) => p.id === id);
-
-      if (index > -1) {
-        selectedProducts.splice(index, 1);
-      } else {
-        selectedProducts.push(product);
-      }
-
-      localStorage.setItem("selectedProducts", JSON.stringify(selectedProducts));
-      renderProducts();
-      renderSelectedProducts();
-    });
-  });
+    `;
+  }).join("");
 }
+
+productsContainer.addEventListener("click", (e) => {
+  const card = e.target.closest(".product-card");
+  if (!card) return;
+  const id = parseInt(card.dataset.id);
+  const product = allProducts.find((p) => p.id === id);
+
+  if (e.target.classList.contains("select-btn")) {
+    const index = selectedProducts.findIndex((p) => p.id === id);
+    if (index > -1) {
+      selectedProducts.splice(index, 1);
+    } else {
+      selectedProducts.push(product);
+    }
+    localStorage.setItem("selectedProducts", JSON.stringify(selectedProducts));
+    renderProducts();
+    renderSelectedProducts();
+  }
+
+  if (e.target.classList.contains("desc-btn")) {
+    const overlay = card.querySelector(".product-overlay");
+    overlay.classList.remove("hidden");
+    overlay.classList.add("show");
+  }
+
+  if (e.target.classList.contains("close-overlay")) {
+    const overlay = card.querySelector(".product-overlay");
+    overlay.classList.remove("show");
+    overlay.classList.add("hidden");
+  }
+});
 
 function renderSelectedProducts() {
   if (selectedProducts.length === 0) {
-    selectedProductsList.innerHTML = `<p>No products selected yet.</p>`;
+    selectedProductsList.innerHTML = `<p><span>No products selected yet.</span></p>`;
     return;
   }
 
-  selectedProductsList.innerHTML = selectedProducts
-    .map(
-      (product) => `
+  selectedProductsList.innerHTML = selectedProducts.map((product) => `
     <div class="product-card small" data-id="${product.id}">
       <button class="remove-btn" title="Remove">×</button>
       <img src="${product.image}" alt="${product.name}">
@@ -84,15 +102,13 @@ function renderSelectedProducts() {
         <p>${product.brand}</p>
       </div>
     </div>
-  `
-    )
-    .join("");
+  `).join("");
 
-  document.querySelectorAll(".remove-btn").forEach((btn) => {
+  selectedProductsList.querySelectorAll(".remove-btn").forEach((btn) => {
     btn.addEventListener("click", (e) => {
       e.stopPropagation();
       const card = btn.closest(".product-card");
-      const id = parseInt(card.getAttribute("data-id"));
+      const id = parseInt(card.dataset.id);
       selectedProducts = selectedProducts.filter((p) => p.id !== id);
       localStorage.setItem("selectedProducts", JSON.stringify(selectedProducts));
       renderProducts();
@@ -101,17 +117,14 @@ function renderSelectedProducts() {
   });
 }
 
-/* Search input and category filtering */
 searchInput.addEventListener("input", renderProducts);
 categoryFilter.addEventListener("change", renderProducts);
 
 /* ========== Chatbot ========== */
-
 const messages = [
   {
     role: "system",
-    content:
-      "You are a helpful and friendly L’Oréal beauty assistant that knows everything about the brand's products. Your tone should be natural and reminiscent of a normal conversation, with a friendly demeanor. Only answer questions related to beauty, skincare, haircare, cosmetics, and L’Oréal routines. If asked unrelated questions, politely redirect the user back.",
+    content: "You are a helpful and friendly L’Oréal beauty assistant that knows everything about the brand's products. Only answer questions related to beauty, skincare, haircare, cosmetics, and L’Oréal routines.",
   }
 ];
 
@@ -126,7 +139,6 @@ chatForm.addEventListener("submit", async (e) => {
   userInput.value = "";
 
   appendMessage("ai", "💬 Thinking...");
-
   if (chatSound) {
     chatSound.currentTime = 0;
     chatSound.play();
@@ -162,9 +174,8 @@ function appendMessage(role, text) {
   chatWindow.scrollTop = chatWindow.scrollHeight;
 }
 
-/* Initialize category dropdown and greeting */
 document.addEventListener("DOMContentLoaded", function () {
-  const choices = new Choices(categoryFilter, {
+  new Choices(categoryFilter, {
     searchEnabled: false,
     itemSelectText: '',
     shouldSort: false,

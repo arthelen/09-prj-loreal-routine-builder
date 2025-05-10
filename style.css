@@ -514,6 +514,14 @@ select {
   margin-bottom: 20px;
 }
 
+.selected-products span {
+  font-size: 16px;
+  font-weight: bold;
+  opacity: 0.5;
+  color: #3D3D3D;
+  margin-bottom: 20px;
+}
+
 #selectedProductsList {
   display: flex;
   flex-wrap: wrap;
