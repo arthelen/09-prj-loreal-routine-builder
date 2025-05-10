@@ -23,20 +23,77 @@ async function loadProducts() {
 
 /* Create HTML for displaying product cards */
 function displayProducts(products) {
+  const saved = JSON.parse(localStorage.getItem("selectedProducts")) || [];
+
   productsContainer.innerHTML = products
     .map(
+      (product) => {
+        const isSelected = saved.some(p => p.name === product.name);
+        return `
+        <div class="product-card ${isSelected ? 'selected' : ''}" data-name="${product.name}">
+          <img src="${product.image}" alt="${product.name}">
+          <div class="product-info">
+            <h3>${product.name}</h3>
+            <p>${product.brand}</p>
+          </div>
+        </div>
+      `;
+      }
+    )
+    .join("");
+
+  attachCardListeners(products);
+}
+
+/* Attach click event listeners to product cards */
+function attachCardListeners(products) {
+  const cards = document.querySelectorAll(".product-card");
+
+  cards.forEach((card) => {
+    card.addEventListener("click", () => {
+      const name = card.dataset.name;
+      const selected = JSON.parse(localStorage.getItem("selectedProducts")) || [];
+      const product = products.find((p) => p.name === name);
+      const index = selected.findIndex((p) => p.name === name);
+
+      if (index > -1) {
+        selected.splice(index, 1);
+        card.classList.remove("selected");
+      } else {
+        selected.push(product);
+        card.classList.add("selected");
+      }
+
+      localStorage.setItem("selectedProducts", JSON.stringify(selected));
+      renderSelectedProducts(); // ✅ re-render list
+    });
+  });
+}
+
+function renderSelectedProducts() {
+  const selected = JSON.parse(localStorage.getItem("selectedProducts")) || [];
+  const container = document.getElementById("selectedProductsList");
+
+  if (selected.length === 0) {
+    container.innerHTML = "<p style='opacity: 0.6;'>No products selected yet.</p>";
+    return;
+  }
+
+  container.innerHTML = selected
+    .map(
       (product) => `
-    <div class="product-card">
-      <img src="${product.image}" alt="${product.name}">
-      <div class="product-info">
-        <h3>${product.name}</h3>
-        <p>${product.brand}</p>
+      <div class="product-card selected small" data-name="${product.name}">
+        <img src="${product.image}" alt="${product.name}">
+        <div class="product-info">
+          <h3>${product.name}</h3>
+          <p>${product.brand}</p>
+        </div>
       </div>
-    </div>
-  `
+    `
     )
     .join("");
 }
+
 
 /* Filter and display products when category changes */
 categoryFilter.addEventListener("change", async (e) => {
@@ -128,4 +185,8 @@ document.addEventListener("DOMContentLoaded", function () {
     shouldSort: false,
     placeholderValue: 'Choose a Category'
   });
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+  renderSelectedProducts();
 });
