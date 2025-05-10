@@ -483,8 +483,8 @@ select {
 }
 
 .product-card.selected::after {
-  content: "✓ Selected";
-  font-weight: bold;
+  content: "✓";
+  font-weight: bolder;
   position: absolute;
   top: 10px;
   right: 12px;
@@ -492,16 +492,43 @@ select {
   color: white;
   padding: 2px 8px;
   font-size: 12px;
-  border-radius: 8px;
+  border-radius: 10px;
+}
+
+.remove-btn {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  background: #3D3D3D;
+  border: none;
+  color: white;
+  font-size: 12px;
+  border-radius: 10px;
+  width: 22px;
+  height: 22px;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+  z-index: 1;
+}
+
+.remove-btn:hover {
+  background: #FF003B;
 }
 
 .product-card.small {
-  flex: 0 1 calc(50% - 10px);
-  background: white;
+  flex: 0 1 calc(33.333% - 14px);
+  position: relative;
+  background: #f0f0f0;
   border: 2px solid #FF003B;
+  border-radius: 10px;
   padding: 15px;
   min-height: 160px;
-  gap: 10px;
+  gap: 15px;
+}
+
+.product-card.small::after {
+  content: "";
+  background: #f0f0f0;;
 }
 
 .product-card.small img {

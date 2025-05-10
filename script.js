@@ -83,6 +83,7 @@ function renderSelectedProducts() {
     .map(
       (product) => `
       <div class="product-card selected small" data-name="${product.name}">
+        <button class="remove-btn" data-name="${product.name}">✖</button>
         <img src="${product.image}" alt="${product.name}">
         <div class="product-info">
           <h3>${product.name}</h3>
@@ -92,8 +93,33 @@ function renderSelectedProducts() {
     `
     )
     .join("");
+
+  attachRemoveListeners();
 }
 
+/* Attach click event listeners to remove buttons */
+function attachRemoveListeners() {
+  const buttons = document.querySelectorAll(".remove-btn");
+  const cards = document.querySelectorAll(".product-card");
+
+  buttons.forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation(); // prevent bubbling to card click
+      const name = btn.dataset.name;
+
+      let selected = JSON.parse(localStorage.getItem("selectedProducts")) || [];
+      selected = selected.filter((p) => p.name !== name);
+      localStorage.setItem("selectedProducts", JSON.stringify(selected));
+
+      renderSelectedProducts();
+
+      // Unselect in main grid (if visible)
+      document
+        .querySelectorAll(`.product-card[data-name="${name}"]`)
+        .forEach((card) => card.classList.remove("selected"));
+    });
+  });
+}
 
 /* Filter and display products when category changes */
 categoryFilter.addEventListener("change", async (e) => {
