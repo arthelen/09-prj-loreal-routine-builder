@@ -64,8 +64,13 @@ function attachCardListeners(products) {
         card.classList.add("selected");
       }
 
+      card.classList.add("animate-select");
+      setTimeout(() => {
+        card.classList.remove("animate-select");
+      }, 400);
+
       localStorage.setItem("selectedProducts", JSON.stringify(selected));
-      renderSelectedProducts(); // ✅ re-render list
+      renderSelectedProducts(); // re-render list
     });
   });
 }
@@ -102,23 +107,26 @@ function attachRemoveListeners() {
   const buttons = document.querySelectorAll(".remove-btn");
   const cards = document.querySelectorAll(".product-card");
 
-  buttons.forEach((btn) => {
-    btn.addEventListener("click", (e) => {
-      e.stopPropagation(); // prevent bubbling to card click
-      const name = btn.dataset.name;
+  btn.addEventListener("click", (e) => {
+  e.stopPropagation();
+  const name = btn.dataset.name;
+  const card = btn.closest(".product-card");
 
-      let selected = JSON.parse(localStorage.getItem("selectedProducts")) || [];
-      selected = selected.filter((p) => p.name !== name);
-      localStorage.setItem("selectedProducts", JSON.stringify(selected));
+  card.classList.add("fade-out");
 
-      renderSelectedProducts();
+  setTimeout(() => {
+    let selected = JSON.parse(localStorage.getItem("selectedProducts")) || [];
+    selected = selected.filter((p) => p.name !== name);
+    localStorage.setItem("selectedProducts", JSON.stringify(selected));
 
-      // Unselect in main grid (if visible)
-      document
-        .querySelectorAll(`.product-card[data-name="${name}"]`)
-        .forEach((card) => card.classList.remove("selected"));
-    });
-  });
+    renderSelectedProducts();
+
+    // Also remove highlight from main grid
+    document
+      .querySelectorAll(`.product-card[data-name="${name}"]`)
+      .forEach((card) => card.classList.remove("selected"));
+  }, 300);
+});
 }
 
 /* Filter and display products when category changes */
@@ -222,3 +230,9 @@ document.addEventListener("DOMContentLoaded", function () {
 document.addEventListener("DOMContentLoaded", function () {
   renderSelectedProducts();
 });
+
+// if (!localStorage.getItem("chatHistory")) {
+//   appendMessage("ai", "👋 Hi there! I’m your L’Oréal beauty advisor...");
+// }
+
+appendMessage("ai", "👋 Hi there! I’m your L’Oréal beauty advisor. Ask me anything about products, skincare, haircare routines, or recommendations to build your perfect routine!");
