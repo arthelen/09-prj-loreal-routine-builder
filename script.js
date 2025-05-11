@@ -141,7 +141,7 @@ categoryFilter.addEventListener("change", renderProducts);
 const messages = [
   {
     role: "system",
-    content: "You are a helpful and friendly L’Oréal beauty assistant that knows everything about the brand's products. Only answer questions related to beauty, skincare, haircare, cosmetics, and L’Oréal routines.",
+    content: "You are a helpful and friendly L’Oréal beauty assistant that knows everything about the brand's products. Only answer questions related to beauty, skincare, haircare, cosmetics, and L’Oréal routines. Use citation links and keep answers between 500-700 words unless it will get cut off. Your tone is friendly with use of emojis occasionally and follows a natural conversation flow. If the user asks about anything unrelated, kindly apologize and redirect them.",
   }
 ];
 
@@ -206,6 +206,58 @@ chatForm.addEventListener("submit", async (e) => {
     }
   } catch (error) {
     chatWindow.lastChild.querySelector(".bubble").textContent = "❌ Error retrieving response.";
+    console.error(error);
+  }
+});
+
+document.getElementById("generateRoutine").addEventListener("click", async () => {
+  if (chatSound) {
+    chatSound.currentTime = 0;
+    chatSound.play();
+  }
+
+  const productNames = selectedProducts.map(p => p.name);
+  const prompt = productNames.length > 0
+    ? `Here are some product(s) I’m interested in: ${productNames.join(", ")}. Can you build me a routine using them and suggest when and how to use each one?`
+    : `I haven't picked any products yet, can you help me create a basic routine?`;
+
+  appendMessage("user", prompt);
+  messages.push({ role: "user", content: prompt });
+
+  const typingBubble = document.createElement("div");
+  typingBubble.classList.add("msg", "ai");
+  typingBubble.innerHTML = `<div class="bubble"><span class="typing-dots">💬 Building your routine</span></div>`;
+  chatWindow.appendChild(typingBubble);
+  chatWindow.scrollTop = chatWindow.scrollHeight;
+
+  try {
+    const response = await fetch("https://loreal-routine-builder-chatbot.allisonrthelen.workers.dev/", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ messages }),
+    });
+
+    const data = await response.json();
+    const reply = data.reply || "⚠️ Sorry, I didn’t catch that.";
+    messages.push({ role: "assistant", content: reply });
+
+    let replyHTML = `<p>${reply}</p>`;
+    if (data.sources && data.sources.length > 0) {
+      replyHTML += `<div class="sources"><strong>Sources:</strong><ul>`;
+      data.sources.forEach(source => {
+        replyHTML += `<li><a href="${source.url}" target="_blank" rel="noopener noreferrer">${source.title}</a></li>`;
+      });
+      replyHTML += `</ul></div>`;
+    }
+
+    chatWindow.lastChild.querySelector(".bubble").innerHTML = replyHTML;
+
+    if (chatSound) {
+      chatSound.currentTime = 0;
+      chatSound.play();
+    }
+  } catch (error) {
+    chatWindow.lastChild.querySelector(".bubble").textContent = "❌ Error building your routine.";
     console.error(error);
   }
 });
