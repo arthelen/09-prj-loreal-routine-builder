@@ -143,7 +143,23 @@ chatForm.addEventListener("submit", async (e) => {
   messages.push({ role: "user", content: message });
   userInput.value = "";
 
-  appendMessage("ai", "💬 Thinking...");
+  const funMessages = [
+  "💄 Swatching some shades",
+  "🧴 Rummaging through the skincare shelf",
+  "🌟 Mixing up some magic",
+  "💋 Pouting for science",
+  "⏳ Waiting for the serum to sink in",
+  "📦 Unboxing the glam stash",
+  ];
+
+  const randomMessage = funMessages[Math.floor(Math.random() * funMessages.length)];
+
+  const typingBubble = document.createElement("div");
+  typingBubble.classList.add("msg", "ai");
+  typingBubble.innerHTML = `<div class="bubble"><span class="typing-dots">${randomMessage}</span></div>`;
+  chatWindow.appendChild(typingBubble);
+  chatWindow.scrollTop = chatWindow.scrollHeight;
+
   if (chatSound) {
     chatSound.currentTime = 0;
     chatSound.play();
