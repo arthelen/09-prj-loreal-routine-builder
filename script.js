@@ -287,6 +287,17 @@ document.getElementById("resetChat").addEventListener("click", () => {
 });
 
 document.addEventListener("DOMContentLoaded", function () {
+  const rtlLanguages = ["ar", "he", "fa", "ur"]; // Arabic, Hebrew, Persian, Urdu
+  const userLang = navigator.language || navigator.userLanguage;
+  const isRTL = rtlLanguages.includes(userLang.split("-")[0]);
+
+  if (isRTL) {
+    document.documentElement.setAttribute("dir", "rtl");
+  } else {
+    document.documentElement.setAttribute("dir", "ltr");
+  }
+
+  // Your existing setup
   new Choices(categoryFilter, {
     searchEnabled: false,
     itemSelectText: '',
