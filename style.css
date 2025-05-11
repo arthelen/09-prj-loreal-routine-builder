@@ -109,11 +109,11 @@ select {
 }
 
 .site-title {
-  font-size: 22px;
+  font-size: 30px;
   font-family: 'Halesworth Regular', serif;
   font-weight: 500;
   letter-spacing: 0.07em;
-  margin-bottom: 10px;
+  margin-bottom: 25px;
 }
 
 .search-controls {
@@ -195,7 +195,7 @@ select {
   background-color: white;
   font-weight: bold;
   font-size: 18px;
-  color: #3D3D3D;
+  color: black;
   transition: 0.3s ease-in-out;
   /* box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); */
 }
@@ -206,12 +206,20 @@ select {
   border-radius: 10px;
 }
 
+.choices__list--single {
+  width: 250px;
+  border: none;
+  outline: none;
+}
+
 .choices__list--single:hover {
-  color: #FF003B;
+  color: #3D3D3D;
 }
 
 .choices__list--dropdown {
   border: none;
+  outline: none;
+  font-weight: bold;
   /* background-color: #f0f0f0; */
   color: #3D3D3D;
   border-radius: 10px;
@@ -226,7 +234,7 @@ select {
 
 .choices__item--selectable:hover {
   opacity: 100%;
-  color: #FF003B;
+  color: #3D3D3D;
   font-weight: bold;
 }
 
@@ -339,14 +347,14 @@ select {
   border: none;
   border-radius: 6px;
   margin-bottom: 20px;
-  background: #FF003B;
+  background: #3D3D3D;
   color: white;
   cursor: pointer;
   transition: 0.3s ease;
 }
 
 .close-overlay:hover {
-  background: #cc0030;
+  background: #FF003B;
 }
 
 .select-btn,
@@ -361,12 +369,12 @@ select {
 }
 
 .select-btn {
-  background-color: #FF003B;
+  background-color: #3D3D3D;
   color: white;
 }
 
 .select-btn:hover {
-  background-color: #cc0030;
+  background-color: #FF003B;
 }
 
 .desc-btn {
@@ -543,7 +551,7 @@ select {
 }
 
 .selected-products span {
-  font-size: 16px;
+  font-size: 18px;
   font-weight: bold;
   opacity: 0.5;
   color: #3D3D3D;
@@ -767,10 +775,11 @@ select {
   background: #3D3D3D !important;
   color: white;
   border: none;
+  font-size: 18px;
   font-weight: bold;
   border-radius: 10px;
   outline: none;
-  padding: 12px;
+  padding: 16px;
   margin-top: 30px;
   width: 100%;
   cursor: pointer;
