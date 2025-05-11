@@ -758,6 +758,26 @@ select {
   100% { content: '...'; }
 }
 
+.sources {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #555;
+}
+
+.sources ul {
+  padding-left: 16px;
+  margin: 4px 0 0;
+}
+
+.sources a {
+  color: #FF003B;
+  text-decoration: none;
+}
+
+.sources a:hover {
+  text-decoration: underline;
+}
+
 /* visually hidden */
 .visually-hidden {
   position: absolute;

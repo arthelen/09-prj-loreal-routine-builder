@@ -178,7 +178,7 @@ chatForm.addEventListener("submit", async (e) => {
   }
 
   try {
-    const response = await fetch("https://loreal-routine-builder-chatbot.allisonrthelen.workers.dev/", {
+    const response = await fetch("https://loreal-routine-builder-chatbot.allisonrthelen.workers.dev", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ messages }),
@@ -188,7 +188,18 @@ chatForm.addEventListener("submit", async (e) => {
     const reply = data.reply || "⚠️ Sorry, I didn’t catch that.";
     messages.push({ role: "assistant", content: reply });
 
-    chatWindow.lastChild.querySelector(".bubble").textContent = reply;
+    // Build reply with citations if available
+    let replyHTML = `<p>${reply}</p>`;
+    if (data.sources && data.sources.length > 0) {
+      replyHTML += `<div class="sources"><strong>Sources:</strong><ul>`;
+      data.sources.forEach(source => {
+        replyHTML += `<li><a href="${source.url}" target="_blank" rel="noopener noreferrer">${source.title}</a></li>`;
+      });
+      replyHTML += `</ul></div>`;
+    }
+
+    chatWindow.lastChild.querySelector(".bubble").innerHTML = replyHTML;
+
     if (chatSound) {
       chatSound.currentTime = 0;
       chatSound.play();
