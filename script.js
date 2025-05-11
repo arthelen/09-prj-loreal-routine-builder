@@ -93,8 +93,11 @@ productsContainer.addEventListener("click", (e) => {
 });
 
 function renderSelectedProducts() {
+  const clearBtn = document.getElementById("clearSelectedBtn");
+
   if (selectedProducts.length === 0) {
     selectedProductsList.innerHTML = `<p><span>No products selected yet.</span></p>`;
+    if (clearBtn) clearBtn.style.display = "none";
     return;
   }
 
@@ -120,7 +123,16 @@ function renderSelectedProducts() {
       renderSelectedProducts();
     });
   });
+
+  if (clearBtn) clearBtn.style.display = "block";
 }
+
+document.getElementById("clearSelectedBtn").addEventListener("click", () => {
+  selectedProducts = [];
+  localStorage.removeItem("selectedProducts");
+  renderProducts();
+  renderSelectedProducts();
+});
 
 searchInput.addEventListener("input", renderProducts);
 categoryFilter.addEventListener("change", renderProducts);
@@ -166,7 +178,7 @@ chatForm.addEventListener("submit", async (e) => {
   }
 
   try {
-    const response = await fetch("https://loreal-chatbot.allisonrthelen.workers.dev/", {
+    const response = await fetch("https://loreal-routine-builder-chatbot.allisonrthelen.workers.dev/", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ messages }),
