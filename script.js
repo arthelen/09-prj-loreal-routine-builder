@@ -270,6 +270,22 @@ function appendMessage(role, text) {
   chatWindow.scrollTop = chatWindow.scrollHeight;
 }
 
+document.getElementById("resetChat").addEventListener("click", () => {
+  // Reset chat window
+  chatWindow.innerHTML = "";
+  
+  // Reset messages array to only the initial system prompt
+  messages.length = 0;
+  messages.push({
+    role: "system",
+    content:
+      "You are a helpful and friendly L’Oréal beauty assistant that knows everything about the brand's products. Only answer questions related to beauty, skincare, haircare, cosmetics, and L’Oréal routines. Use citation links and keep answers between 500-700 words unless it will get cut off. Your tone is friendly with use of emojis occasionally and follows a natural conversation flow. If the user asks about anything unrelated, kindly apologize and redirect them.",
+  });
+
+  // Add back intro message
+  appendMessage("ai", "👋 Hi there! I'm your personal L’Oréal beauty advisor. Ask me anything or select products to start building your perfect routine.");
+});
+
 document.addEventListener("DOMContentLoaded", function () {
   new Choices(categoryFilter, {
     searchEnabled: false,

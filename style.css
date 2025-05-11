@@ -657,6 +657,7 @@ select {
   flex: 1;
   padding: 12px;
   font-size: 18px;
+  font-weight: bold;
   border: none;
   border-bottom: 3px solid #f0f0f0;
   border-radius: 6px;
