@@ -839,3 +839,81 @@ select {
 .site-footer a:hover {
   color: #FF003B;
 }
+
+/* Responsive Styles */
+@media (max-width: 1024px) {
+  .product-card {
+    flex: 0 1 calc(50% - 14px);
+  }
+  .product-card.small {
+    flex: 0 1 calc(50% - 14px);
+  }
+  .choices__list--single {
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .search-controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  #productSearch,
+  #categoryFilter {
+    width: 100%;
+  }
+
+  .product-card {
+    flex: 0 1 100%;
+  }
+
+  .product-card.small {
+    flex: 0 1 100%;
+  }
+
+  .chat-form {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .chat-form button {
+    width: 100%;
+    height: auto;
+  }
+
+  .chatbox {
+    padding: 16px;
+  }
+
+  .generate-btn {
+    padding: 12px;
+    font-size: 16px;
+  }
+
+  .bubble {
+    max-width: 90%;
+    font-size: 14px;
+  }
+
+  .navbar-logo {
+    height: 45px;
+  }
+
+  .site-title {
+    font-size: 22px;
+  }
+
+  .full-nav {
+    gap: 30px;
+    flex-direction: column;
+  }
+
+  .choices__inner {
+    font-size: 16px;
+  }
+
+  .choices__item--selectable {
+    font-size: 14px;
+  }
+}
