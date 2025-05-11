@@ -546,7 +546,6 @@ select {
 .selected-products p {
   font-size: 16px;
   color: #3D3D3D;
-  margin-bottom: 20px;
 }
 
 .selected-products span {
@@ -728,6 +727,9 @@ select {
   line-height: 1.4;
   background-color: #f0f0f0;
   color: #3D3D3D;
+  word-wrap: break-word;         
+  overflow-wrap: anywhere;       
+  white-space: pre-wrap;        
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
